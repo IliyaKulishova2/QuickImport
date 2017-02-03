@@ -1,34 +1,47 @@
 package quickImport;
 
-import org.testng.annotations.*;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.testng.annotations.Test;
 
 /**
  * Created by Iliya on 01/26/2017.
  */
 public class QuickImportTest extends TestBase {
 
-    /*@BeforeClass(alwaysRun = true)
-    public void setUp() throws Exception {
-        System.setProperty("webdriver.gecko.driver", "D://Install/geckodriver.exe");
+    @Test(priority=1)
 
-        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-        capabilities.setCapability("marionette", true);
-
-        driver = new FirefoxDriver(capabilities);
-        baseUrl = "http://www.map2.iliya.dxloo.com/dms/login";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }*/
-
-    @Test
-
-    public void testQuickImport() throws Exception {
+    public void testQuickImportLoginToDMS() throws Exception {
         driver.get(baseUrl + "dms/login");
         driver.findElement(By.id("login")).clear();
         driver.findElement(By.id("login")).sendKeys("autotest");
         driver.findElement(By.id("password")).clear();
         driver.findElement(By.id("password")).sendKeys("123");
         driver.findElement(By.id("login2")).click();
-        Thread.sleep(6000);
+
+
+        driver.get(baseUrl + "dms/inventory/quickimport");
+        driver.findElement(By.id("file_url")).clear();
+        driver.findElement(By.id("file_url")).sendKeys("http://admin.autoxloo.com/datafeed_input/autoxloo/Renault_v10.csv");
+        driver.findElement(By.linkText("Import Now")).click();
+
+        //driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        //Assert.assertTrue(driver.findElement(By.linkText("Home")).isDisplayed());
+        //Thread.sleep(6000);
+
+        //WebElement source = driver.findElement(By.xpath("//*[@id='height_body']/div/div[1]/div[1]"));
+        //Assert.assertEquals("Import complete", source.getText());
+
+       /* ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+        driver.switchTo().window(tabs2.get(1));
+        driver.close();
+        driver.switchTo().window(tabs2.get(0));*/
+
+
+        //Assert.assertTrue(driver.findElement(By.linkText("Home")).isDisplayed());
+        //WebElement source = driver.findElement(By.xpath("//*[@id='height_body']/table/tbody/tr/td[2]/table/tbody/tr[2]/td[1]/div"));
+        //Assert.assertEquals("autotest", source.getText());
+
     }
+
+
 }
